@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guessing Game</title>
+  <style>
+    body {
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .container {
+      margin: 100px auto;
+      padding: 20px;
+      width: 300px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      width: 100%;
+      margin-top: 10px;
+      box-sizing: border-box;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+
+    #feedback {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    #attempts {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Guessing Game</h1>
+    <p>Guess a number between 1 and 100:</p>
+    <input type="number" id="guessInput">
+    <button onclick="checkGuess()">Check</button>
+    <p id="feedback"></p>
+    <p id="attempts">Attempts: 0</p>
+  </div>
+
+  <script>
+    var targetNumber = Math.floor(Math.random() * 100) + 1;
+    var guessInput = document.getElementById("guessInput");
+    var feedback = document.getElementById("feedback");
+    var attemptsDisplay = document.getElementById("attempts");
+    var attempts = 0;
+
+    function checkGuess() {
+      var userGuess = parseInt(guessInput.value);
+      if (isNaN(userGuess)) {
+        feedback.textContent = "Please enter a valid number!";
+      } else {
+        attempts++;
+        if (userGuess === targetNumber) {
+          feedback.textContent = "Congratulations! You guessed the number in " + attempts + " attempts.";
+          resetGame();
+        } else if (userGuess < targetNumber) {
+          feedback.textContent = "Too low! Try again.";
+        } else {
+          feedback.textContent = "Too high! Try again.";
+        }
+        attemptsDisplay.textContent = "Attempts: " + attempts;
+      }
+      guessInput.value = "";
+      guessInput.focus();
+    }
+
+    function resetGame() {
+      targetNumber = Math.floor(Math.random() * 100) + 1;
+      attempts = 0;
+      attemptsDisplay.textContent = "Attempts: 0";
+    }
+  </script>
+</body>
+</html>
